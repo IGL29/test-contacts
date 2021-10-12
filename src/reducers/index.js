@@ -1,3 +1,5 @@
+import { GET_CONTACTS, CREATE_CONTACT } from '../actions';
+
 const initialState = {
   contacts: [
     {
@@ -32,9 +34,9 @@ const initialState = {
   isModalOpen: false
 };
 
-function reducer(state = initialState, action) {
+function contactReducer(state = initialState, action) {
   switch (action.type) {
-    case 'CREATE_CONTACT':
+    case CREATE_CONTACT:
       return Object.assign({}, state, {
         newContact: action.createContact
       });
@@ -44,4 +46,4 @@ function reducer(state = initialState, action) {
   }
 }
 
-export { initialState, reducer };
+export { initialState, contactReducer };

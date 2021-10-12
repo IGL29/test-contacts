@@ -3,7 +3,7 @@ import { ListContacts } from './components/ListContacts';
 import { Button } from './components/Button';
 import styles from './app.scss';
 import React from 'react';
-import { store } from './store/store';
+import { store } from './store';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,15 +15,9 @@ class App extends React.Component {
     this.contacts = store.getState().contacts
   }
 
-  openModal = () => {
+  openModal = (booleanState) => {
     this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  }
-
-  closeModal = () => {
-    this.setState({
-      isOpen: false,
+      isOpen: booleanState || !this.state.isOpen,
     });
   }
 
@@ -37,7 +31,7 @@ class App extends React.Component {
 
         <Form
           isOpen={ this.state.isOpen }
-          handlerClick={ this.closeModal }
+          openModal={ this.openModal }
         />
 
         <h1>Контакты</h1>

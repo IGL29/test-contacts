@@ -1,4 +1,4 @@
-import { store } from '../../store/store';
+import { store } from '../../store';
 import { ItemContact } from './ItemContact';
 import styles from './listContacts.scss';
 

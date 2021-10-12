@@ -1,8 +1,9 @@
 import cn from 'classnames';
 import style from './form.scss';
 import { useState } from 'react';
+import { store } from '../../store';
 
-function Form({ isOpen, handlerClick }) {
+function Form({ isOpen, openModal }) {
 	const [formData, updateData] = useState({
 		firstName: '',
 		lastName: '',
@@ -28,7 +29,7 @@ function Form({ isOpen, handlerClick }) {
 			phone: '',
 			email: '',
 		});
-		handlerClick();
+		openModal(false);
 	}
 
 	const handlerSave = (ev) => {
@@ -40,8 +41,8 @@ function Form({ isOpen, handlerClick }) {
 			phone: '',
 			email: '',
 		});
-		
-		handlerClick();
+		// store.dispatch(createContact(formData));
+		openModal();
 	}
 
 	return (
