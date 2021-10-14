@@ -1,54 +1,46 @@
 import cn from 'classnames';
 import style from './form.scss';
 import { useState } from 'react';
-import { store } from '../../store';
+import { useSelector, useDispatch } from 'react-redux';
+import { createContactActionCreator } from '../../store/contacts';
+import { closeModalActionCreater } from '../../store/modal';
+import { clearFormActionCreator } from '../../store/form';
 
-function Form({ isOpen, openModal }) {
-	const [formData, updateData] = useState({
-		firstName: '',
-		lastName: '',
-		phone: '',
-		email: '',
-	});
-
-	const classState = isOpen ? 'visible' : '';
+function Form() {
+	const dispatch = useDispatch();
+	const modalStateFromRedux = useSelector((state) => state.modal);
+	const formStateFromRedux = useSelector((state) => state.form);
+	console.log('formStateFromRedux', formStateFromRedux)
+	const [formData, setFormData] = useState(formStateFromRedux);
+	const classModalState = modalStateFromRedux.isModalOpen ? 'visible' : '';
 
 	const handleInputChange = (key, value) => {
-		updateData({
+		setFormData({
 			...formData,
 			[key]: value,
-		});
-	};
+		})
+	}
 
 	const handlerCancel = (ev) => {
 		ev.preventDefault();
-
-		updateData({
-			firstName: '',
-			lastName: '',
-			phone: '',
-			email: '',
-		});
-		openModal(false);
+		dispatch(clearFormActionCreator());
+		dispatch(closeModalActionCreater());
 	}
 
 	const handlerSave = (ev) => {
 		ev.preventDefault();
-
-		updateData({
-			firstName: '',
-			lastName: '',
-			phone: '',
-			email: '',
-		});
-		// store.dispatch(createContact(formData));
-		openModal();
+		dispatch(createContactActionCreator(formData));
+		setFormData({});
+		// clearForm();
+		// dispatch(closeModalActionCreater());
 	}
+
+	console.log('formData', formData);
 
 	return (
 		<form className={cn({
 			form: true,
-			visible: classState,
+			visible: classModalState,
 		})}>
 			<h2 className="form__title">Новый контакт</h2>
 

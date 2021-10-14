@@ -1,9 +1,7 @@
-import { store } from '../../store';
 import { ItemContact } from './ItemContact';
 import styles from './listContacts.scss';
 
 export function ListContacts({ contacts }) {
-	console.log(store.getState().contacts)
 	return (
 		<table className="list">
 			<tbody>
@@ -17,7 +15,7 @@ export function ListContacts({ contacts }) {
 
 				{
 					contacts.map((dataItem, index) => (
-						<ItemContact key={index} data={dataItem} />
+						<ItemContact key={index} data={dataItem}/>
 					))
 				}
 			</tbody>

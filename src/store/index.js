@@ -1,7 +1,8 @@
-import { contactReducer, initialState } from '../reducers';
 import { createStore } from 'redux';
+import reducers from './reducers';
 
-const store = createStore(contactReducer, initialState);
+const initializeStore = (initialState = {}) => {
+  return createStore(reducers, initialState);
+};
 
-export { store };
-  
+export default {initializeStore, reducers};
