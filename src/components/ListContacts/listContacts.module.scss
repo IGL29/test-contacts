@@ -1,0 +1,29 @@
+.list {
+  max-width: 400px;
+  width: 100%;
+  margin: 0;
+	padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  list-style-type: none;
+  border-collapse: collapse;
+}
+
+td {
+	padding: 7px;
+  border: 1px solid #666;
+  background-color: #FFF;
+  transition: background-color 0.3s;
+}
+
+tr {
+  cursor: pointer;
+
+  &:hover > td {
+    background-color: #cbcec8;
+  }
+
+  &:active > td {
+    background-color: #a9aaa9;
+  }
+}

@@ -1,7 +1,8 @@
 import styles from './itemContacts.scss';
 import { useDispatch } from 'react-redux';
-import { openModalActionCreater } from '../../../store/modal';
-import { addInitialValue } from '../../../store/form';
+import { openModalActionCreater } from '../../../store/modules/modal';
+import { addInitialValue } from '../../../store/modules/form';
+import { store } from 'react';
 
 
 function ItemContact({ data }) {
@@ -13,7 +14,7 @@ function ItemContact({ data }) {
 		}))
 		dispatch(openModalActionCreater())
 	}
-	
+
 	return (
 		<tr className={"item"} onClick={ openWindowEdit }>
 			<td className="wrap-descr__descr">{data.id}</td>

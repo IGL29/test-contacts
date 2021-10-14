@@ -1,5 +1,5 @@
 const CHANGE_FORM = 'CHANGE_INPUT';
-const OPEN_MODAL = 'OPEN_MODAL';
+const CLEAR_MODAL = 'CLEAR_MODAL';
 const FORM_ADD_VALUES = 'FORM_ADD_VALUES';
 
 function changeInput() {
@@ -10,7 +10,7 @@ function changeInput() {
 
 function clearForm() {
   return {
-    type: OPEN_MODAL,
+    type: CLEAR_MODAL,
   };
 }
 
@@ -34,9 +34,9 @@ const initialState = {
 
 export default function formReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_FORM:
+    case CLEAR_MODAL:
       return {
-        ...state,
+        initialState,
       }
     case CHANGE_FORM:
       return {

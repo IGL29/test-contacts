@@ -1,15 +1,19 @@
 import { Form } from './components/Form';
 import { ListContacts } from './components/ListContacts';
 import { Button } from './components/Button';
-import { useSelector } from 'react-redux';
-import styles from './app.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContactActionCreator } from './store/modules/contacts';
+import styles from './app.module.scss';
 
 function App() {
-  const contactsFromRedux = useSelector(store => store.contacts)
+  const dispatch = useDispatch();
+  const contactsFromRedux = useSelector(store => store.contacts);
+  const componentDidMount = () => dispatch(getContactActionCreator());
   const modalFromRedux = useSelector(store => store.modal)
+  console.log(contactsFromRedux)
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <Button classNamePosition="container__button" />
       
       {modalFromRedux.isModalOpen && (
@@ -18,7 +22,7 @@ function App() {
 
       <h1>Контакты</h1>
 
-      {(contactsFromRedux.length) ? <ListContacts contacts={contactsFromRedux} /> : <p>Пусто...</p>}
+      {(contactsFromRedux.contacts.length) ? <ListContacts contacts={contactsFromRedux.contacts} /> : <p>Пусто...</p>}
     </div>
   );
 }

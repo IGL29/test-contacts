@@ -1,9 +1,9 @@
 import { ItemContact } from './ItemContact';
-import styles from './listContacts.scss';
+import styles from './listContacts.module.scss';
 
 export function ListContacts({ contacts }) {
 	return (
-		<table className="list">
+		<table className={styles.list}>
 			<tbody>
 				<tr>
 					<th>id</th>

@@ -1,16 +1,16 @@
 import cn from 'classnames';
-import style from './form.scss';
+import style from './form.module.scss';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createContactActionCreator } from '../../store/contacts';
-import { closeModalActionCreater } from '../../store/modal';
-import { clearFormActionCreator } from '../../store/form';
+import { createContactActionCreator } from '../../store/modules/contacts';
+import { closeModalActionCreater } from '../../store/modules/modal';
+import { clearFormActionCreator } from '../../store/modules/form';
 
 function Form() {
 	const dispatch = useDispatch();
 	const modalStateFromRedux = useSelector((state) => state.modal);
 	const formStateFromRedux = useSelector((state) => state.form);
-	console.log('formStateFromRedux', formStateFromRedux)
+
 	const [formData, setFormData] = useState(formStateFromRedux);
 	const classModalState = modalStateFromRedux.isModalOpen ? 'visible' : '';
 
@@ -31,67 +31,69 @@ function Form() {
 		ev.preventDefault();
 		dispatch(createContactActionCreator(formData));
 		setFormData({});
-		// clearForm();
-		// dispatch(closeModalActionCreater());
+		dispatch(closeModalActionCreater());
 	}
 
-	console.log('formData', formData);
-
 	return (
-		<form className={cn({
-			form: true,
-			visible: classModalState,
-		})}>
-			<h2 className="form__title">Новый контакт</h2>
+		<div className={style.modal}>
+			<div className={style['modal__background']} onClick={handlerCancel}></div>
 
-			<label className="label"> Имя
+			<form className={cn({
+				[style['modal__form']]: true,
+				[style.form]: true,
+				[style.visible]: classModalState,
+			})}>
+			<h2 className={style['form__title']}>Новый контакт</h2>
+
+			<label className={style.label}> Имя
 				<input
-					className="input"
+					className={style.input}
 					type="text"
 					value={formData.firstName}
 					onChange={e => handleInputChange('firstName', e.target.value)}
 				></input>
 			</label>
 
-			<label className="label"> Фамилия
+			<label className={style.label}> Фамилия
 				<input
-					className="input"
+					className={style.input}
 					type="text"
 					value={formData.lastName}
 					onChange={e => handleInputChange('lastName', e.target.value)}
 				></input>
 			</label>
 
-			<label className="label"> Телефон
+			<label className={style.label}> Телефон
 				<input
-					className="input"
+					className={style.input}
 					type="text"
 					value={formData.phone}
 					onChange={e => handleInputChange('phone', e.target.value)}
 				></input>
 			</label>
 
-			<label className="label"> Email
+			<label className={style.label}> Email
 				<input
-					className="input"
+					className={style.input}
 					type="text"
 					value={formData.email}
 					onChange={e => handleInputChange('email', e.target.value)}
 				></input>
 			</label>
 
-			<div className="form__wrap-btn">
+			<div className={style['form__wrap-btn']}>
 				<button
-					className={cn("btn", "cancel")}
+					className={cn(style.btn, style.cancel)}
 					onClick={handlerCancel}
 				>Отмена</button>
 
 				<button
-					className={cn("btn", "save")}
+					className={cn(style.btn, style.save)}
 					onClick={handlerSave}
 				>Сохранить</button>
 			</div>
-		</form>
+			</form>
+		</div>
 	);
 }
 

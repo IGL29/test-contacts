@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 
-import contacts from './contacts';
-import modal from './modal';
-import form from './form';
+import contacts from './modules/contacts';
+import modal from './modules/modal';
+import form from './modules/form';
 
 export default combineReducers({
   contacts,
