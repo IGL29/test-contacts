@@ -1,37 +1,33 @@
-import cn from 'classnames';
-import style from './form.module.scss';
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createContactActionCreator } from '../../store/modules/contacts';
-import { closeModalActionCreater } from '../../store/modules/modal';
-import { clearFormActionCreator } from '../../store/modules/form';
+import cn from 'classnames';
+
+import { createContact } from '../../store/modules/contacts';
+import { closeModal } from '../../store/modules/modal';
+import { clearForm, changeInput } from '../../store/modules/form';
+import style from './form.module.scss';
 
 function Form() {
 	const dispatch = useDispatch();
 	const modalStateFromRedux = useSelector((state) => state.modal);
 	const formStateFromRedux = useSelector((state) => state.form);
 
-	const [formData, setFormData] = useState(formStateFromRedux);
 	const classModalState = modalStateFromRedux.isModalOpen ? 'visible' : '';
 
 	const handleInputChange = (key, value) => {
-		setFormData({
-			...formData,
-			[key]: value,
-		})
+    dispatch(changeInput({ ...formStateFromRedux, [key]: value }))
 	}
 
 	const handlerCancel = (ev) => {
 		ev.preventDefault();
-		dispatch(clearFormActionCreator());
-		dispatch(closeModalActionCreater());
+		dispatch(clearForm());
+		dispatch(closeModal());
 	}
 
 	const handlerSave = (ev) => {
 		ev.preventDefault();
-		dispatch(createContactActionCreator(formData));
-		setFormData({});
-		dispatch(closeModalActionCreater());
+		dispatch(createContact(formStateFromRedux));
+		dispatch(clearForm());
+		dispatch(closeModal());
 	}
 
 	return (
@@ -49,7 +45,7 @@ function Form() {
 				<input
 					className={style.input}
 					type="text"
-					value={formData.firstName}
+					value={formStateFromRedux.firstName}
 					onChange={e => handleInputChange('firstName', e.target.value)}
 				></input>
 			</label>
@@ -58,7 +54,7 @@ function Form() {
 				<input
 					className={style.input}
 					type="text"
-					value={formData.lastName}
+					value={formStateFromRedux.lastName}
 					onChange={e => handleInputChange('lastName', e.target.value)}
 				></input>
 			</label>
@@ -67,7 +63,7 @@ function Form() {
 				<input
 					className={style.input}
 					type="text"
-					value={formData.phone}
+					value={formStateFromRedux.phone}
 					onChange={e => handleInputChange('phone', e.target.value)}
 				></input>
 			</label>
@@ -76,7 +72,7 @@ function Form() {
 				<input
 					className={style.input}
 					type="text"
-					value={formData.email}
+					value={formStateFromRedux.email}
 					onChange={e => handleInputChange('email', e.target.value)}
 				></input>
 			</label>

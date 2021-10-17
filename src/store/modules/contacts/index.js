@@ -1,36 +1,38 @@
 const GET_CONTACTS = 'GET_CONTACTS';
 const CREATE_CONTACT = 'CREATE_CONTACT';
 
-export function createContact(newContact) {
+// ACTION CREATORS
+
+export const createContact = (newContact) => {
   return {
     type: CREATE_CONTACT,
     payload: newContact,
   }
 }
 
-export function getContact(newContact) {
+export const getContact = () => {
   return {
     type: GET_CONTACTS,
   }
 }
 
-export const createContactActionCreator = (newContact) => (createContact(newContact));
-export const getContactActionCreator = (newContact) => (createContact(newContact));
+// STATE
 
 const initialState = {
   contacts: []
 };
 
+// REDUCER
+
 function contactsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CONTACTS:
-      const isLocalStorageEmpty = localStorage.getItem('contacts').length;
-      if(isLocalStorageEmpty) {
-        return state;
+      const isLocalStorageNotEmpty = localStorage.getItem('contacts')?.length;
+      if(isLocalStorageNotEmpty) {
+        return { contacts: localStorage.getItem('contacts') }
       }
-      return {
-        contacts: localStorage.getItem('contacts')
-      }
+      return state;
+
     case CREATE_CONTACT:
       if (!action.payload.id) {
         action.payload.id = state.contacts.length + 1;

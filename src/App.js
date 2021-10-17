@@ -1,21 +1,23 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Form } from './components/Form';
 import { ListContacts } from './components/ListContacts';
 import { Button } from './components/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContactActionCreator } from './store/modules/contacts';
+import { getContact } from './store/modules/contacts';
 import styles from './app.module.scss';
 
 function App() {
   const dispatch = useDispatch();
   const contactsFromRedux = useSelector(store => store.contacts);
-  const componentDidMount = () => dispatch(getContactActionCreator());
-  const modalFromRedux = useSelector(store => store.modal)
-  console.log(contactsFromRedux)
+  const modalFromRedux = useSelector(store => store.modal);
+
+  useEffect(() => dispatch(getContact()));
 
   return (
     <div className={styles.container}>
       <Button classNamePosition="container__button" />
-      
+
       {modalFromRedux.isModalOpen && (
         <Form />
       )}

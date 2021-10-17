@@ -2,28 +2,29 @@ const CHANGE_FORM = 'CHANGE_INPUT';
 const CLEAR_MODAL = 'CLEAR_MODAL';
 const FORM_ADD_VALUES = 'FORM_ADD_VALUES';
 
-function changeInput() {
+// ACTION CREATORS
+
+export const changeInput = (payload) => {
   return {
     type: CHANGE_FORM,
+    payload,
   };
 }
 
-function clearForm() {
+export const clearForm = () => {
   return {
     type: CLEAR_MODAL,
   };
 }
 
-function addValues(payload) {
+export const addValues = (payload) => {
   return {
     type: FORM_ADD_VALUES,
     payload,
   };
 }
 
-export const changeInputActionCreator = () => changeInput();
-export const clearFormActionCreator = () => clearForm();
-export const addInitialValue = (values) => addValues(values);
+// STATE
 
 const initialState = {
   firstName: '',
@@ -31,6 +32,8 @@ const initialState = {
   phone: '',
   email: '',
 };
+
+// REDUCER
 
 export default function formReducer(state = initialState, action) {
   switch (action.type) {
@@ -41,6 +44,7 @@ export default function formReducer(state = initialState, action) {
     case CHANGE_FORM:
       return {
         ...state,
+        ...action.payload,
       }
     case FORM_ADD_VALUES: {
       return {
